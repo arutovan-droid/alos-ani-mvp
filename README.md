@@ -1,4 +1,4 @@
-git clone https://github.com/arutovan-droid/alos-ani-mvp.git
+
 **ALOS – Advanced Logistics Operating System** is a concept for a regional logistics OS for complex trade corridors  
 (Iran–Caucasus–Black Sea, INSTC, Middle Corridor, etc.).
 
@@ -207,6 +207,7 @@ Disclaimer
 This repository is a minimal proof-of-concept for the ALOS customs engine (ANI):
 
 It is not meant for production use as-is.
+git clone https://github.com/arutovan-droid/alos-ani-mvp.git
 
 The HS codes and descriptions in the knowledge base are illustrative.
 
