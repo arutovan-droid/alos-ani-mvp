@@ -1,4 +1,5 @@
-# alos-ani-mvp
+git clone https://github.com/arutovan-droid/alos-ani-mvp.git
+
 # ALOS ANI MVP
 
 **ALOS (Advanced Logistics Operating System)** – региональная логистическая OS.  
