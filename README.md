@@ -215,3 +215,73 @@ There is no legal or compliance guarantee in this code.
 
 It is intended to demonstrate one possible architecture for
 an AI-assisted customs classification engine in a complex multilingual environment.
+
+## Quickstart
+
+ALOS ANI MVP is a minimal **Automated Neural Inspector** for customs HS code classification.  
+Input: free-text description from invoice/CMR.  
+Output: suggested HS code, confidence and risk flag.
+
+---
+
+## 1. Run locally (Python + venv)
+
+```bash
+# From repo root
+python -m venv .venv
+.venv\Scripts\activate         # on Windows
+# source .venv/bin/activate    # on macOS/Linux
+
+pip install -r requirements.txt
+
+uvicorn alos_core.customs.api:app --reload
+Open the interactive docs:
+
+http://127.0.0.1:8000/docs
+
+Example request (PowerShell / CMD):
+
+bash
+Копировать код
+curl -X POST "http://127.0.0.1:8000/classify" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"text\": \"բլուտուզ խոսփաքեր\"}"
+2. Run with Docker
+Build image:
+
+bash
+Копировать код
+docker buildx build -t alos-customs --load .
+Run container:
+
+bash
+Копировать код
+docker run -d --name alos-customs -p 8000:8000 alos-customs
+Check that the container is up:
+
+bash
+Копировать код
+docker ps
+API will be available at:
+
+Docs: http://127.0.0.1:8000/docs
+
+Classify example:
+
+bash
+Копировать код
+curl -X POST "http://127.0.0.1:8000/classify" ^
+  -H "Content-Type: application/json" ^
+  -d "{\"text\": \"բլուտուզ խոսփաքեր\"}"
+Response example:
+
+json
+Копировать код
+{
+  "raw_input": "բլուտուզ խոսփաքեր",
+  "normalized": "blutuz khospaker",
+  "matched_desc": "wireless bluetooth speaker portable audio device blutuz khospaker колонка blutuz speaker",
+  "confidence": 0.26,
+  "hs_code": "851821",
+  "risk_flag": "low"
+}
