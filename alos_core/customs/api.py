@@ -1,12 +1,10 @@
-# alos_core/customs/api.py
 from fastapi import FastAPI
 from pydantic import BaseModel
-
 from .engine import CustomsEngine
 
 app = FastAPI(
-    title="ALOS ANI MVP",
-    description="Mini MVP of Automated Neural Inspector for customs HS classification",
+    title="ALOS - Customs Broker Service",
+    description="Microservice for HS code suggestion and customs risk checks",
     version="0.1.0",
 )
 
@@ -17,20 +15,11 @@ class ClassifyRequest(BaseModel):
     text: str
 
 
-class ClassifyResponse(BaseModel):
-    raw_input: str
-    normalized: str
-    matched_desc: str | None
-    confidence: float
-    hs_code: str | None
-    risk_flag: str | None
+@app.post("/classify")
+async def classify(req: ClassifyRequest):
+    return engine.predict_hs(req.text)
 
 
-@app.post("/classify", response_model=ClassifyResponse)
-def classify(req: ClassifyRequest):
-    result = engine.predict_hs(req.text)
-    return ClassifyResponse(**result)
-
-
-# для локального запуска:
-# uvicorn alos_core.customs.api:app --reload
+@app.get("/health")
+async def health():
+    return {"status": "ok", "service": "customs_broker"}
