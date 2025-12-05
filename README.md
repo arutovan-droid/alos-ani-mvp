@@ -202,7 +202,41 @@ Add logging & telemetry:
 track corrections from human inspectors,
 
 support human-in-the-loop learning.
+Technical Roadmap (Vector Database Integration)
 
+Phase 1 – Current MVP (done):
+
+Customs microservice (ANI – Automated Neural Inspector) built on FastAPI.
+
+Semantic search using SentenceTransformer to match free-text item descriptions with HS codes.
+
+Simple in-memory knowledge base for pilot scenarios.
+
+Phase 2 – Vector Database for Scale (Qdrant / FAISS):
+
+Integrate a dedicated vector database (Qdrant or FAISS) as the primary store for embeddings.
+
+Support millions of records (item descriptions, HS codes, historical declarations) with fast cosine-similarity search.
+
+Enable online learning: every correction made by a human broker (human-in-the-loop) is written back into the vector store and improves future predictions.
+
+Partition the vector index by region/jurisdiction (EU, EAEU, Iran, China, etc.) to reflect local rules and tariff specifics.
+
+Phase 3 – Shared “central memory” for all ALOS modules:
+
+Logistics planning, insurance, and customs modules all run on top of the same vector knowledge base.
+
+This allows:
+
+full history per client and item (routes, risks, delays, claims);
+
+cross-modal risk models (route + cargo type + jurisdiction);
+
+more accurate delay and cost predictions across the entire corridor.
+
+One-line summary for slides:
+
+Next step: migrate from a simple in-memory example store to a production-grade vector database (Qdrant/FAISS), so the system can handle millions of items and declarations in real time.
 Disclaimer
 This repository is a minimal proof-of-concept for the ALOS customs engine (ANI):
 
