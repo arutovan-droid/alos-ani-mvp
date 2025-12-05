@@ -1,0 +1,26 @@
+# Python cache / compiled
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual envs
+.venv/
+env/
+venv/
+
+# Editor / OS junk
+.vscode/
+.idea/
+*.log
+*.tmp
+*.swp
+.DS_Store
+
+# Tests cache
+tests/__pycache__/
+
+# Example caches
+examples/__pycache__/
+
+# Byte-compiled in subpackages
+alos_core/*/__pycache__/
